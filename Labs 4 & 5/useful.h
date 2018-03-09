@@ -5,7 +5,7 @@
 //--------------------------------------------------
 enum Bool { False, True };
 typedef enum Bool boolean;
-static inline char *stringFromBoolean(boolean b);
+char *stringFromBoolean(boolean b);
 
 
 char my_get_char();

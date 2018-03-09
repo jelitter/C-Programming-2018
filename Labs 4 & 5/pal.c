@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include "useful.h"
 
-
-
-void displayState (int* pListOfNumbers,  int  cursorPosition, int numberOfDigits, int numberOfGoes) {
+void displayState (int* pListOfNumbers, int cursorPosition, int numberOfDigits, int numberOfGoes) {
 
     const int padding = 16;
 
@@ -23,29 +21,33 @@ void displayState (int* pListOfNumbers,  int  cursorPosition, int numberOfDigits
 
 }
 
-void moveCursorRight ( int* pPosOfCursor, int max) {
+void moveCursorRight ( int* pPosOfCursor, int max, int* numberOfGoes) {
     if (*pPosOfCursor < max -1) {
         *pPosOfCursor += 1;
+        *numberOfGoes += 1;
     }
 }
 
-void moveCursorLeft ( int* pPosOfCursor) {
+void moveCursorLeft ( int* pPosOfCursor, int* numberOfGoes) {
     if (*pPosOfCursor > 0) {
         *pPosOfCursor -= 1;
+        *numberOfGoes += 1;
     }
 }
 
-void incrementDigitInListAtPos (int* pListOfNumbers, int cursorPosition) {
+void incrementDigitInListAtPos (int* pListOfNumbers, int cursorPosition, int* numberOfGoes) {
 
     if (pListOfNumbers[cursorPosition] < 9) {
         pListOfNumbers[cursorPosition] += 1;
+        *numberOfGoes += 1;
     }
 }
 
-void decrementDigitInListAtPos (int* pListOfNumbers, int cursorPosition) {
+void decrementDigitInListAtPos (int* pListOfNumbers, int cursorPosition, int* numberOfGoes) {
 
     if (pListOfNumbers[cursorPosition] > 0) {
         pListOfNumbers[cursorPosition] -= 1;
+        *numberOfGoes += 1;
     }
 }
 
@@ -96,23 +98,24 @@ char getCommand() {
     return my_get_char();
 }
 
-void processCommand (int* pList, int size, int* cursorPosition, char command) {
+
+void processCommand (int* pList, int size, int* cursorPosition, char command, int* numberOfGoes) {
 
     switch (command) {
         case 'a'  :
-            moveCursorLeft (cursorPosition);
+            moveCursorLeft (cursorPosition, numberOfGoes);
             break;
 
         case 'd'  :
-            moveCursorRight (cursorPosition, size);
+            moveCursorRight (cursorPosition, size, numberOfGoes);
             break;
 
         case 'w'  :
-            incrementDigitInListAtPos(pList, *cursorPosition);
+            incrementDigitInListAtPos(pList, *cursorPosition, numberOfGoes);
             break;
 
         case 'x'  :
-            decrementDigitInListAtPos(pList, *cursorPosition);
+            decrementDigitInListAtPos(pList, *cursorPosition, numberOfGoes);
             break;
 
         default :

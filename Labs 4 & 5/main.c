@@ -5,32 +5,10 @@
 
 int main() {
 
-//    int listOfNumbers[] = {1, 2, 3, 6, 8, 9};
-//    int numberOfDigits = 6;
-//    int cursorPosition = 0;
     int numberOfGoes = 0;
 
-
-//    printf ("\nLocation of listOfNumbers: %p", listOfNumbers);
-//    printf ("\nPosition of cursor: %d", cursorPosition);
-//
-//    displayState  (listOfNumbers, cursorPosition, numberOfDigits, numberOfGoes);
-//
-//    moveCursorRight (&cursorPosition, numberOfDigits);
-//    displayState  (listOfNumbers, cursorPosition, numberOfDigits, numberOfGoes);
-//
-//    incrementDigitInListAtPos(&listOfNumbers, cursorPosition);
-//    displayState  (listOfNumbers, cursorPosition, numberOfDigits, numberOfGoes);
-//
-//    moveCursorRight (&cursorPosition, numberOfDigits);
-//    decrementDigitInListAtPos(&listOfNumbers, cursorPosition);
-//    displayState  (listOfNumbers, cursorPosition, numberOfDigits, numberOfGoes);
-
-
-//    palindromeTest ();
-
+//    runTests();
     startGame(&numberOfGoes);
-
 
     return 0;
 }
@@ -42,15 +20,38 @@ void startGame(int *numberOfGoes) {
     int numberOfDigits = 6;
     int positionOfCursor = 0;
 
-
     displayState  (listOfNumbers, positionOfCursor, numberOfDigits, *numberOfGoes);
     while (isPalindrome (listOfNumbers, 6) == False) {
         command = getCommand();
-        *numberOfGoes += 1;
-        processCommand (&listOfNumbers, numberOfDigits, &positionOfCursor, command);
+//        *numberOfGoes += 1;
+        processCommand (&listOfNumbers, numberOfDigits, &positionOfCursor, command, numberOfGoes);
         displayState  (listOfNumbers, positionOfCursor, numberOfDigits, *numberOfGoes);
     }
 
     printf("\n\nCongratulations! You found a palindrome after %d movements.\n\n", *numberOfGoes);
     return;
+}
+
+void runTests() {
+    int listOfNumbers[] = {1, 2, 3, 6, 8, 9};
+    int numberOfDigits = 6;
+    int cursorPosition = 0;
+    int numberOfGoes = 0;
+
+    printf ("\nLocation of listOfNumbers: %p", listOfNumbers);
+    printf ("\nPosition of cursor: %d", cursorPosition);
+
+    displayState  (listOfNumbers, cursorPosition, numberOfDigits, numberOfGoes);
+
+    moveCursorRight (&cursorPosition, numberOfDigits, &numberOfGoes);
+    displayState  (listOfNumbers, cursorPosition, numberOfDigits, numberOfGoes);
+
+    incrementDigitInListAtPos (&listOfNumbers, cursorPosition, &numberOfGoes);
+    displayState  (listOfNumbers, cursorPosition, numberOfDigits, numberOfGoes);
+
+    moveCursorRight (&cursorPosition, numberOfDigits, &numberOfGoes);
+    decrementDigitInListAtPos (&listOfNumbers, cursorPosition, &numberOfGoes);
+    displayState  (listOfNumbers, cursorPosition, numberOfDigits, numberOfGoes);
+
+    palindromeTest ();
 }
