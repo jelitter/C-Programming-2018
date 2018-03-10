@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include "useful.h"
 
+void resetScreen() {
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    return;
+}
+
 void displayState (int* pListOfNumbers, int cursorPosition, int numberOfDigits, int numberOfGoes) {
 
-    const int padding = 16;
+    const int padding = 18;
 
-    printf ("\n\nGame State:   < ");
+    resetScreen();
+
+    printf ("  Game State:   < ");
 
     for (int i = 0; i < numberOfDigits; i++) {
         printf ("%d", pListOfNumbers[i]);
@@ -16,9 +23,9 @@ void displayState (int* pListOfNumbers, int cursorPosition, int numberOfDigits, 
     for (int i = 0; i < padding + cursorPosition; i++) {
         printf (" ");
     }
-
     printf ("^");
-
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    return;
 }
 
 void moveCursorRight ( int* pPosOfCursor, int max, int* numberOfGoes) {
@@ -36,19 +43,16 @@ void moveCursorLeft ( int* pPosOfCursor, int* numberOfGoes) {
 }
 
 void incrementDigitInListAtPos (int* pListOfNumbers, int cursorPosition, int* numberOfGoes) {
-
-    if (pListOfNumbers[cursorPosition] < 9) {
-        pListOfNumbers[cursorPosition] += 1;
+        pListOfNumbers[cursorPosition] = (pListOfNumbers[cursorPosition] + 1) % 10;
         *numberOfGoes += 1;
-    }
 }
 
 void decrementDigitInListAtPos (int* pListOfNumbers, int cursorPosition, int* numberOfGoes) {
-
-    if (pListOfNumbers[cursorPosition] > 0) {
         pListOfNumbers[cursorPosition] -= 1;
+        if (pListOfNumbers[cursorPosition] < 0) {
+            pListOfNumbers[cursorPosition] = 9;
+        }
         *numberOfGoes += 1;
-    }
 }
 
 boolean isPalindrome (int* pListOfNumbers, int size) {
@@ -94,8 +98,8 @@ void palindromeTest () {
 char getCommand() {
     char  validCharacters = { 'a', 'd', 'w', 'x'};
 
-    printf ("\nPress key (a,d to move, w,x to modify): ");
-    return my_get_char();
+    printf ("\n  Press key (a,d to move, w,x to modify): ");
+    return myGetChar();
 }
 
 
@@ -121,5 +125,18 @@ void processCommand (int* pList, int size, int* cursorPosition, char command, in
         default :
             break;
     }
+
+    int * initialiseArray( int number) {
+        int length = 6;
+        int arr[6];
+        int i = 0;
+        do {
+            arr[i] = number % 10;
+            number /= 10;
+            i++;
+        } while (number != 0);
+        return arr;
+    }
+
 
 }

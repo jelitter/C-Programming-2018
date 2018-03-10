@@ -11,6 +11,6 @@ void palindromeTest ();
 char getCommand();
 void processCommand(int* pList, int size, int* cursorPosition, char command, int* numberOfGoes);
 int * initialiseArray( int number);
-
+int randomPosition(int max);
 
 #endif

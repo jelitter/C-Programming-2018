@@ -35,7 +35,7 @@ char my_get_char() {
 char myGetChar() {
     char res = ' ';
 
-    while (res != 'w' && res != 'x' && res != 'a' && res != 'd') {
+    while (res != 'w' && res != 'x' && res != 'a' && res != 'd' && res != 'n' && res != 'k') {
         res = getch();
     }
     return res;

@@ -5,30 +5,32 @@
 
 int main() {
 
-    int numberOfGoes = 0;
+    int initialNumber = 123671;
 
 //    runTests();
-    startGame(&numberOfGoes);
+    startGame(initialNumber);
 
     return 0;
 }
 
 
-void startGame(int *numberOfGoes) {
+void startGame(int initialNumber) {
     char command;
-    int listOfNumbers[] = {1,2,3,3,4,1};
+    int numberOfGoes = 0;
+//    int listOfNumbers[] = {1,2,3,3,4,1};
+    int * listOfNumbers = initialiseArray(initialNumber);
     int numberOfDigits = 6;
     int positionOfCursor = 0;
 
-    displayState  (listOfNumbers, positionOfCursor, numberOfDigits, *numberOfGoes);
+    displayState  (listOfNumbers, positionOfCursor, numberOfDigits, numberOfGoes);
     while (isPalindrome (listOfNumbers, 6) == False) {
         command = getCommand();
 //        *numberOfGoes += 1;
-        processCommand (&listOfNumbers, numberOfDigits, &positionOfCursor, command, numberOfGoes);
-        displayState  (listOfNumbers, positionOfCursor, numberOfDigits, *numberOfGoes);
+        processCommand (&listOfNumbers, numberOfDigits, &positionOfCursor, command, &numberOfGoes);
+        displayState  (listOfNumbers, positionOfCursor, numberOfDigits, numberOfGoes);
     }
 
-    printf("\n\nCongratulations! You found a palindrome after %d movements.\n\n", *numberOfGoes);
+    printf("\n\nCongratulations! You found a palindrome after %d movements.\n\n", numberOfGoes);
     return;
 }
 
@@ -55,3 +57,4 @@ void runTests() {
 
     palindromeTest ();
 }
+
