@@ -19,6 +19,9 @@ void play_game();
 
 void initialise_game(struct game* p_game_info, char* name1, char* name2);
 
-void draw_banner();
+void draw_banner(struct game* p_game_info);
 void display_board(char board[3][3]);
 void print_status(struct game* p_game_info);
+void display_board_positions();
+void get_row_col(int position, int *row, int *col);
+void process_move(struct game* game_info);

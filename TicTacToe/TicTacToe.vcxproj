@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="game.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="useful.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
