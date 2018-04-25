@@ -39,7 +39,7 @@ void play_game()
 
 	printf("\n\n Game Over.");
 	getch();
-		
+
 }
 
 void initialise_game(struct game* p_game_info, char* name1, char* name2) {
@@ -116,7 +116,7 @@ void print_status(struct game * p_game_info) {
 //
 //	printf("\n\n         Board");
 //	printf("\n       positions:");
-//		
+//
 //	printf("\n%s|-----------|\n", MARGIN);
 //	for (int i = 0; i < 3; i++) {
 //
@@ -159,8 +159,30 @@ boolean boardIsFull(struct game* game_info) {
 	return True;
 }
 
+
+boolean win_at_pos(struct game* game_info, int x, int y) {
+	// Checks wether the last play at x,y wins the game or not.
+	char mark = game_info->board[x][y];
+
+	return (   game_info->board[x][0] == mark    // 3 in the row
+			&& game_info->board[x][1] == mark
+			&& game_info->board[x][2] == mark
+			|| game_info->board[0][y] == mark    // 3 in the column
+			&& game_info->board[1][y] == mark
+			&& game_info->board[2][y] == mark
+			|| x == y                            // 3 in the diagonal
+			&& game_info->board[0][0] == mark
+			&& game_info->board[1][1] == mark
+			&& game_info->board[2][2] == mark
+			|| x + y == 2                       // 3 in the opposite diagonal
+			&& game_info->board[0][2] == mark
+			&& game_info->board[1][1] == mark
+			&& game_info->board[2][0] == mark);
+}
+
+
 void process_move(struct game* game_info) {
-	
+
 	int row = -1;
 	int col = -1;
 	int pos = -1;
@@ -204,22 +226,4 @@ void process_move(struct game* game_info) {
 	}
 }
 
-boolean win_at_pos(struct game* game_info, int x, int y) {
-	// Checks wether the last play at x,y wins the game or not.
-	char mark = game_info->board[x][y];
 
-	return (   game_info->board[x][0] == mark    // 3 in the row
-			&& game_info->board[x][1] == mark
-			&& game_info->board[x][2] == mark
-			|| game_info->board[0][y] == mark    // 3 in the column
-			&& game_info->board[1][y] == mark
-			&& game_info->board[2][y] == mark
-			|| x == y                            // 3 in the diagonal
-			&& game_info->board[0][0] == mark
-			&& game_info->board[1][1] == mark
-			&& game_info->board[2][2] == mark
-			|| x + y == 2                       // 3 in the opposite diagonal
-			&& game_info->board[0][2] == mark
-			&& game_info->board[1][1] == mark
-			&& game_info->board[2][0] == mark);
-}

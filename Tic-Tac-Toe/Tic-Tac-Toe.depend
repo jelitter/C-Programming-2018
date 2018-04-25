@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1524648080 source:c:\users\isanchez\desktop\git\c-programming-2018\tic-tac-toe\main.c
+	<stdio.h>
+	<stdlib.h>
+	"game.h"
+
+1524648089 c:\users\isanchez\desktop\git\c-programming-2018\tic-tac-toe\game.h
+
+1524648096 source:c:\users\isanchez\desktop\git\c-programming-2018\tic-tac-toe\useful.c
+
