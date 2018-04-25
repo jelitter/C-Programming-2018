@@ -7,5 +7,5 @@ int main(int argc, char* argv[])
 	play_game();
 
 	getch();
-	return 0;
+	return 0; 
 }

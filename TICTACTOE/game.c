@@ -70,9 +70,9 @@ void clearScreen() {
 void draw_banner(struct game* p_game_info)
 {
 	clearScreen();
-	printf("  /-----------------\\        %s: %c\n", p_game_info->playerNames[0], X_SYMBOL);
+	printf("  *-----------------*        %s: %c\n", p_game_info->playerNames[0], X_SYMBOL);
 	printf("  |   GAME STATUS   |       %s: %c\n", p_game_info->playerNames[1], O_SYMBOL);
-	printf("  \\-----------------/\n\n");
+	printf("  *-----------------*\n\n");
 }
 
 void display_board(char board[3][3]) {
@@ -95,6 +95,15 @@ void print_status(struct game * p_game_info) {
 		return;
 	case (P2_TURN):
 		printf(" Player 2 turn: %s", p_game_info->playerNames[1]);
+		return;
+	case (P1_WON):
+		printf(" Player 1 won! Congratulations %s!", p_game_info->playerNames[0]);
+		return;
+	case (P2_WON):
+		printf(" Player 2 won! Congratulations %s!", p_game_info->playerNames[1]);
+		return;
+	case (DRAW):
+		printf(" It was a DRAW!");
 		return;
 	default:
 		break;
@@ -178,6 +187,39 @@ void process_move(struct game* game_info) {
 		game_info->status = P1_TURN;
 	}
 
-	game_info->finished = boardIsFull(game_info);
+	// If last play won the game
+	if (win_at_pos(game_info, row, col)) {
+		if (game_info->status == P2_TURN) {
+			game_info->status = P1_WON;
+		}
+		else if (game_info->status == P1_TURN) {
+			game_info->status = P2_WON;
+		}
+		game_info->finished = True;
+	}
+	// If last play didn't win the game but the board is now full, it's a draw
+	else if (boardIsFull(game_info)) {
+		game_info->status = DRAW;
+		game_info->finished = True;
+	}
+}
 
+boolean win_at_pos(struct game* game_info, int x, int y) {
+	// Checks wether the last play at x,y wins the game or not.
+	char mark = game_info->board[x][y];
+
+	return (   game_info->board[x][0] == mark    // 3 in the row
+			&& game_info->board[x][1] == mark
+			&& game_info->board[x][2] == mark
+			|| game_info->board[0][y] == mark    // 3 in the column
+			&& game_info->board[1][y] == mark
+			&& game_info->board[2][y] == mark
+			|| x == y                            // 3 in the diagonal
+			&& game_info->board[0][0] == mark
+			&& game_info->board[1][1] == mark
+			&& game_info->board[2][2] == mark
+			|| x + y == 2                       // 3 in the opposite diagonal
+			&& game_info->board[0][2] == mark
+			&& game_info->board[1][1] == mark
+			&& game_info->board[2][0] == mark);
 }

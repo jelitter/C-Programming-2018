@@ -13,4 +13,3 @@ int getDigitFromKeyboard() {
 	} while (n < 0 || n > 8);
 	return n;
 }
-
